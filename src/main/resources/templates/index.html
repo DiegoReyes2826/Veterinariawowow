@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | Veterinaria WowWow</title>
+    <style>
+        :root {
+            --primary: #4b8bbe;
+            --secondary: #f8a434;
+            --light: #f5f5f5;
+            --dark: #333;
+            --success: #5cb85c;
+            --warning: #f0ad4e;
+            --danger: #d9534f;
+            --info: #5bc0de;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1534361960057-19889db9621e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin: 20px;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .welcome-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
+        .role-form {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #3a6a8a;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard {
+            margin-top: 40px;
+            text-align: left;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .role-title {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .menu-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .menu-item {
+            margin-bottom: 15px;
+        }
+        
+        .menu-link {
+            display: block;
+            padding: 12px 20px;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .menu-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(10px);
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .menu-link i {
+            margin-right: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 600px) {
+            .overlay {
+                padding: 25px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <div class="logo">
+            <i class="fas fa-paw"></i> Wow<span>Wow</span> <i class="fas fa-paw"></i>
+        </div>
+        
+        <h1>Sistema de Gestión Veterinaria</h1>
+        
+        <p class="welcome-message">
+            Bienvenido al sistema de gestión integral de la Veterinaria WowWow. 
+            Por favor selecciona tu rol para acceder a las funciones correspondientes.
+        </p>
+        
+        <form th:action="@{/}" method="get" class="role-form">
+            <label for="rol">Selecciona tu rol:</label>
+            <select name="rol" id="rol">
+                <option value="">-- Selecciona --</option>
+                <option value="administrador">Administrador</option>
+                <option value="recepcionista">Recepcionista</option>
+            </select>
+            <button type="submit" class="btn">Entrar al Sistema</button>
+        </form>
+
+        <div th:if="${rol != null}" class="dashboard">
+            <h2 class="role-title" th:text="'Panel de ' + ${rol}"></h2>
+            
+            <div th:if="${rol == 'administrador'}">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a th:href="@{/usuarios}" class="menu-link">
+                            <i class="fas fa-users-cog"></i> Gestionar Usuarios
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a th:href="@{/citas}" class="menu-link">
+                            <i class="fas fa-calendar-check"></i> Administrar Citas
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+			<div th:if="${rol == 'recepcionista'}">
+			    <ul class="menu-list">
+			        <li class="menu-item">
+			            <a th:href="@{/citas}" class="menu-link">
+			                <i class="fas fa-calendar-alt"></i> Gestionar Citas
+			            </a>
+			        </li>
+			        <li class="menu-item">
+			            <a th:href="@{/mascotas}" class="menu-link">
+			                <i class="fas fa-paw"></i> Ver Mascotas
+			            </a>
+			        </li>
+			        <li class="menu-item">
+			            <a th:href="@{/recepcionista/veterinarios-disponibles}" class="menu-link">
+			                <i class="fas fa-user-md"></i> Veterinarios Disponibles
+			            </a>
+			        </li>
+			    </ul>
+			</div>
+        </div>
+    </div>
+</body>
+</html>
+
+
